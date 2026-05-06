@@ -1,0 +1,51 @@
+const form = document.getElementById("loginForm");
+const email = document.getElementById("email");
+const password = document.getElementById("password");
+const emailError = document.getElementById("emailError");
+const passwordError = document.getElementById("passwordError");
+const btn = document.getElementById("loginBtn");
+const successMsg = document.getElementById("successMsg");
+
+// Validação de email
+email.addEventListener("input", () => {
+  if (!email.value.includes("@")) {
+    emailError.textContent = "Email inválido";
+  } else {
+    emailError.textContent = "";
+  }
+});
+
+// Validação de senha
+password.addEventListener("input", () => {
+  if (password.value.length < 6) {
+    passwordError.textContent = "Mínimo 6 caracteres";
+  } else {
+    passwordError.textContent = "";
+  }
+});
+
+// Mostrar / ocultar senha
+function togglePassword() {
+  password.type = password.type === "password" ? "text" : "password";
+}
+
+// Envio do formulário
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  btn.disabled = true;
+  btn.textContent = "Entrando...";
+
+  setTimeout(() => {
+    if (email.value === "admin@email.com" && password.value === "123456") {
+      successMsg.textContent = "Login realizado com sucesso!";
+      passwordError.textContent = "";
+    } else {
+      successMsg.textContent = "";
+      passwordError.textContent = "Email ou senha incorretos";
+    }
+
+    btn.disabled = false;
+    btn.textContent = "Entrar";
+  }, 1500);
+});
